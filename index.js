@@ -15,6 +15,7 @@ class Toyhouse {
         if (!URL.includes('toyhou.se')) throw new Error('"URL" has to be a valid URL of a Character.')
 
         this.URL = URL
+        this.Gallery_URL = URL + '/gallery'
     }
 
     /**
@@ -75,7 +76,7 @@ class Toyhouse {
      * @returns {Promise<String[] | URL[]>}
      */
     async Gallery() {
-        const Body = await this.Load_Body(this.URL + '/gallery')
+        const Body = await this.Load_Body(this.Gallery_URL)
         const $ = Cheerio.load(Body)
 
         const Gallery = []
