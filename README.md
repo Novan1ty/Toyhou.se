@@ -10,7 +10,7 @@ Creator: `Novanity#1148`
 
 ## Example
 ```js
-import Toyhouse from 'toyhou.se'
+const { Toyhouse } = require('toyhou.se')
 
 const URL = 'https://toyhou.se/4182489.syia'
 const Syia_Toyhouse = new Toyhouse(URL)
