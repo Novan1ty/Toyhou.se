@@ -1,7 +1,7 @@
 // Toyhou.se ~ 10/7/21; October 7, 2021
 
-import Fetch from 'node-fetch'
-import Cheerio from 'cheerio'
+const Fetch = require('node-fetch')
+const Cheerio = require('cheerio')
 
 /**
  * The Toyhou.se Class
@@ -157,4 +157,4 @@ class Toyhouse {
     }
 }
 
-export default Toyhouse
+module.exports = { Toyhouse }
