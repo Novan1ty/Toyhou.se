@@ -26,11 +26,11 @@ class Toyhouse {
         const $ = Cheerio.load(Body)
 
         const Creator = $('.display-user')
-        const Creator_Name = $('.display-user-username')
+        const Creator_Username = $('.display-user-username')
         const Creator_Avatar = $('.display-user-avatar')
 
         const Creator_URL = (Creator.find('a'))[0].attribs.href
-        const Username = Creator_Name.text()
+        const Username = Creator_Username.text()
         const Avatar = Creator_Avatar[0].attribs.src
         
         // console.log(Avatar)
@@ -92,14 +92,17 @@ class Toyhouse {
         return Gallery
     }
     /**
-     * Returns the created date of the character.
+     * Returns the date of creation of the character.
      */
-    async Created() {
+    async Creation() {
         const Body = await this.Load_Body()
         const $ = Cheerio.load(Body)
 
-        const Date_n_Time = $('.tooltipster').text()
-        return Date_n_Time
+        const Creation = $('.tooltipster')
+        const Created = Creation.text()
+        const Date_n_Time = Creation[0].attribs.title
+
+        return { Created: Created, 'Date & Time': Date_n_Time }
     }
     /**
      * Returns an array of tags of the character.
@@ -128,13 +131,13 @@ class Toyhouse {
         const Info = await this.Character()
         const Profile = await this.Profile()
         const Gallery = await this.Gallery()
-        const Created = await this.Created()
+        const Creation = await this.Creation()
         const Tags = await this.Tags()
 
         return {
             Creator: Creator, Info: Info,
             Profile: Profile, Gallery: Gallery,
-            Created: Created, Tags: Tags
+            Creation: Creation, Tags: Tags
         }
     }
 

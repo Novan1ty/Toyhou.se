@@ -24,14 +24,23 @@ Syia_Toyhouse.All().then(Syia => {
     console.log(Syia)
 })
 ```
+
+### Setup
 ```js
-// Novanity's API
+// Toyhou.se API
 
 const Fetch = require('node-fetch')
 
 const Syia = 'https://toyhou.se/4182489.syia'
 const Novanity = 'https://novanitys-api.novan1ty.repl.co/toyhou.se/all?url=' + Syia
 
+// Or...
+
+const Toyhouse_API = 'https:/toyhouse.novan1ty.repl.co/all?url=' + Syia
+```
+
+### Retrieving Data
+```js
 // Method 1
 
 const Response = await Fetch(Novanity)
@@ -44,7 +53,6 @@ console.log(All)
 Fetch(Novanity)
 .then(Response => Response.json())
 .then(All => console.log(All))
-
 ```
 
 ## Methods
@@ -52,7 +60,7 @@ Fetch(Novanity)
 - `Character`
 - `Profile`
 - `Gallery`
-- `Created`
+- `Creation`
 - `Tags`
 
 ## Updates
@@ -62,5 +70,5 @@ Fetch(Novanity)
     - `Character`
     - `Profile`
     - `Gallery`
-    - `Created`
+    - `Creation`
     - `Tags`
