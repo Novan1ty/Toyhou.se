@@ -8,7 +8,9 @@ Creator: `Novanity#1148`
 - Easy-To-Understand
 - 100% Beginner-Friendly
 
-## API
+## APIs
+[Toyhou.se | API](https://toyhouse.novan1ty.repl.co/) (Recommended)
+
 [Novanity's API](https://novanitys-api.novan1ty.repl.co/)
 
 ## Examples
@@ -17,12 +19,17 @@ Creator: `Novanity#1148`
 
 const { Toyhouse } = require('toyhou.se')
 
-const URL = 'https://toyhou.se/4182489.syia'
-const Syia_Toyhouse = new Toyhouse(URL)
+const PixelLeafs_URL = 'https://toyhou.se/PixelLeaf'
+const Syias_URL = 'https://toyhou.se/4182489.syia'
 
-Syia_Toyhouse.All().then(Syia => {
-    console.log(Syia)
+const PixelLeaf = new Toyhouse(PixelLeafs_URL)
+const Syia = new Toyhouse(Syias_URL)
+
+PixelLeaf.Characters(1, 'Names').then(Characters => {
+    console.log(Characters)
 })
+
+Syia.All().then(Syia => console.log(Syia))
 ```
 
 ### Setup
@@ -56,12 +63,28 @@ Fetch(Novanity)
 ```
 
 ## Methods
+
+### Character
+
 - `Creator`
 - `Character`
 - `Profile`
 - `Gallery`
 - `Creation`
 - `Tags`
+
+### User
+
+- `Stats`
+- `Characters`
+- `Arts`
+- `Favorites`
+- `Registration`
+- `Worlds`
+- `Literatures`
+- `Username_Log`
+
+- - -
 
 ## Updates
 - V1
@@ -72,3 +95,14 @@ Fetch(Novanity)
     - `Gallery`
     - `Creation`
     - `Tags`
+- V2
+    - Added User Methods.
+        - `Status`
+        - `Characters`
+        - `Arts`
+        - `Favorites`
+        - `Registration`
+        - `Worlds`
+        - `Literatures`
+        - `Username_Log`
+    - Faster Response.

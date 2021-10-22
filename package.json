@@ -1,8 +1,8 @@
 {
   "name": "toyhou.se",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "description": "Toyhou.se is a basic project for web scraping Toyhou.se",
-  "main": "index.js",
+  "main": "./Miscellaneous/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
