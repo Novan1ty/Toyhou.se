@@ -17,7 +17,7 @@ Creator: `Novanity#1148`
 ```js
 // Toyhou.se
 
-const { Toyhouse } = require('toyhou.se')
+const Toyhouse = require('toyhou.se')
 
 const PixelLeafs_URL = 'https://toyhou.se/PixelLeaf'
 const Syias_URL = 'https://toyhou.se/4182489.syia'
@@ -66,43 +66,45 @@ Fetch(Novanity)
 
 ### Character
 
-- `Creator`
-- `Character`
-- `Profile`
-- `Gallery`
-- `Creation`
-- `Tags`
+- `Creator()`
+- `Character()`
+- `Profile()`
+- `Gallery()`
+- `Creation()`
+- `Tags()`
+- `All()`
 
 ### User
 
-- `Stats`
-- `Characters`
-- `Arts`
-- `Favorites`
-- `Registration`
-- `Worlds`
-- `Literatures`
-- `Username_Log`
+- `Stats()`
+- `Characters()`
+- `Arts()`
+- `Favorites()`
+- `Registration()`
+- `Worlds()`
+- `Literatures()`
+- `Username_Log()`
 
 - - -
 
 ## Updates
 - V1
     ### Methods
-    - `Creator`
-    - `Character`
-    - `Profile`
-    - `Gallery`
-    - `Creation`
-    - `Tags`
+    - `Creator()`
+    - `Character()`
+    - `Profile()`
+    - `Gallery()`
+    - `Creation()`
+    - `Tags()`
+    - `All()`
 - V2
     - Added User Methods.
-        - `Status`
-        - `Characters`
-        - `Arts`
-        - `Favorites`
-        - `Registration`
-        - `Worlds`
-        - `Literatures`
-        - `Username_Log`
+        - `Status()`
+        - `Characters()`
+        - `Arts()`
+        - `Favorites()`
+        - `Registration()`
+        - `Worlds()`
+        - `Literatures()`
+        - `Username_Log()`
     - Faster Response.

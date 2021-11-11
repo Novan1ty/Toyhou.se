@@ -2,7 +2,6 @@
 
 const Fetch = require('node-fetch')
 const Cheerio = require('cheerio')
-const { User } = require('discord.js')
 
 /**
  * The Toyhou.se Class
@@ -473,4 +472,4 @@ class Toyhouse {
     }
 }
 
-module.exports = { Toyhouse }
+module.exports = Toyhouse
