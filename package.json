@@ -1,32 +1,32 @@
 {
-  "name": "toyhou.se",
-  "version": "2.0.2",
-  "description": "Toyhou.se is a basic project for web scraping Toyhou.se",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Novan1ty/Toyhou.se.git"
-  },
-  "keywords": [
-    "toyhouse",
-    "toyhou.se",
-    "toy",
-    "house",
-    "oc",
-    "character",
-    "api"
-  ],
-  "author": "Novanity",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Novan1ty/Toyhou.se/issues"
-  },
-  "homepage": "https://github.com/Novan1ty/Toyhou.se#readme",
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.10",
-    "node-fetch": "^2.6.5"
-  }
+    "name": "toyhou.se",
+    "version": "2.0.3",
+    "description": "Toyhou.se is a basic project for web scraping Toyhou.se",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Novan1ty/Toyhou.se.git"
+    },
+    "keywords": [
+        "toyhouse",
+        "toyhou.se",
+        "toy",
+        "house",
+        "oc",
+        "character",
+        "api"
+    ],
+    "author": "Novanity",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Novan1ty/Toyhou.se/issues"
+    },
+    "homepage": "https://github.com/Novan1ty/Toyhou.se#readme",
+    "dependencies": {
+        "cheerio": "^1.0.0-rc.10",
+        "node-fetch": "^2.6.5"
+    }
 }

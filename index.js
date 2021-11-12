@@ -192,16 +192,17 @@ class Toyhouse {
      * Returns the name(s) and avatar(s) of a character
      * from a certain page.
      * 
-     * ### Function
+     * ### Return
      * - Names
      * - Avatar
      * 
      * @param {Number | String} Page Default: `1`
-     * @param {String} Function Default: `null`
+     * @param {String} Function Default: `''`
      * @returns {Promise<string[] | object[]>}
      */
-    async Characters(Page = 1, Function = null) {
-        if (typeof Function === 'string') Function = Function.toLowerCase()
+    async Characters(Page = 1, Return = '') {
+        if (typeof Return !== 'string') Return = ''
+        Return = Return.toLowerCase()
 
         const Page_Error = new Error('"Page" has to be a page number.')
         if (!Page || isNaN(Page)) throw Page_Error
@@ -211,14 +212,18 @@ class Toyhouse {
         
         const Characters = []
 
-        const Character = $('.gallery-row .gallery-item')
-        Character.each((I, Element) => {
+        const Characters = $('.gallery-row .gallery-item')
+        Characters.each((I, Element) => {
             const All = $(Element)
 
             const Name = All.find(
                 '.thumb-caption .thumb-character-name a'
             ).text()
             const Avatar = All.find('.thumb-image a img').attr('src')
+            
+            if (!Name && !Avatar) return;
+            if (Return.includes('name')) return Characters.push(Name)
+            if (Return.includes('avatar')) return Characters.push(Avatar)
 
             Characters.push({ Name: Name, Avatar: Avatar })
         })
