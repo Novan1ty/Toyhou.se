@@ -84,6 +84,7 @@ Fetch(Novanity)
 - `Worlds()`
 - `Literatures()`
 - `Username_Log()`
+- `Links()`
 
 - - -
 
@@ -108,3 +109,7 @@ Fetch(Novanity)
         - `Literatures()`
         - `Username_Log()`
     - Faster Response.
+
+    - December 7, 2021
+        - New User Method: `Links()`
+        - Username parameter for user methods.
