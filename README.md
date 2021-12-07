@@ -19,16 +19,10 @@ Creator: `Novanity#1148`
 
 const Toyhouse = require('toyhou.se')
 
-const PixelLeafs_URL = 'https://toyhou.se/PixelLeaf'
 const Syias_URL = 'https://toyhou.se/4182489.syia'
-
-const PixelLeaf = new Toyhouse(PixelLeafs_URL)
 const Syia = new Toyhouse(Syias_URL)
 
-PixelLeaf.Characters(1, 'Names').then(Characters => {
-    console.log(Characters)
-})
-
+Syia.Links('PixelLeaf').then(Links => console.log(Links))
 Syia.All().then(Syia => console.log(Syia))
 ```
 
@@ -39,25 +33,22 @@ Syia.All().then(Syia => console.log(Syia))
 const Fetch = require('node-fetch')
 
 const Syia = 'https://toyhou.se/4182489.syia'
-const Novanity = 'https://novanitys-api.novan1ty.repl.co/toyhou.se/all?url=' + Syia
-
-// Or...
-
 const Toyhouse_API = 'https:/toyhouse.novan1ty.repl.co/all?url=' + Syia
+const Novanity = 'https://novanitys-api.novan1ty.repl.co/toyhou.se/all?url=' + Syia
 ```
 
 ### Retrieving Data
 ```js
-// Method 1
+// First Method
 
-const Response = await Fetch(Novanity)
+const Response = await Fetch(YOUR_CHOSEN_API)
 const All = await Response.json()
 
 console.log(All)
 
-// Method 2
+// Second Method
 
-Fetch(Novanity)
+Fetch(YOUR_CHOSEN_API)
 .then(Response => Response.json())
 .then(All => console.log(All))
 ```
