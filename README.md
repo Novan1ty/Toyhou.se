@@ -99,6 +99,7 @@ Fetch(YOUR_CHOSEN_API)
         - `Worlds()`
         - `Literatures()`
         - `Username_Log()`
+        - `Links()`
     - Faster Response.
 
     - December 7, 2021
