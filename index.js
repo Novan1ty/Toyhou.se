@@ -24,7 +24,7 @@ class Toyhouse {
      * Returns the creator of a character.
      */
     async Creator() {
-        const Body = await this.Load_Body()
+        const Body = await this.Load_Body(this.URL)
         const $ = Cheerio.load(Body)
 
         const Username = $('.display-user-username').text()
@@ -36,13 +36,14 @@ class Toyhouse {
         return {
             Username: Username,
             Avatar: Avatar,
-            Creator_URL: Creator_URL }
+            Creator_URL: Creator_URL
+        }
     }
     /**
      * Returns the name and avatar of a character.
      */
     async Character() {
-        const Body = await this.Load_Body()
+        const Body = await this.Load_Body(this.URL)
         const $ = Cheerio.load(Body)
 
         const Name = $('.display-4').text()
@@ -54,7 +55,7 @@ class Toyhouse {
      * @returns {Promise<String[]>}
      */
     async Profile() {
-        const Body = await this.Load_Body()
+        const Body = await this.Load_Body(this.URL)
         const $ = Cheerio.load(Body)
 
         const Characters_Profile = []
@@ -99,7 +100,7 @@ class Toyhouse {
      * Returns the date of creation of a character.
      */
     async Creation() {
-        const Body = await this.Load_Body()
+        const Body = await this.Load_Body(this.URL)
         const $ = Cheerio.load(Body)
 
         const Creation = $('.tooltipster')
@@ -113,7 +114,7 @@ class Toyhouse {
      * @returns {Promise<String[]>}
      */
     async Tags() {
-        const Body = await this.Load_Body()
+        const Body = await this.Load_Body(this.URL)
         const $ = Cheerio.load(Body)
 
         const Tags = []
@@ -203,7 +204,7 @@ class Toyhouse {
      * 
      * @param {String} Username
      * @param {Number | String} Page Default: `1`
-     * @param {String} Function Default: `''`
+     * @param {String} Return Default: `''`
      * @returns {Promise<string[] | object[]>}
      */
     async Characters(Username, Page = 1, Return = '') {
@@ -328,9 +329,8 @@ class Toyhouse {
     /**
      * Returns the worlds of a user.
      * 
-     * @param {String} String
+     * @param {String} Username
      * @param {Number | String} Page Default: `1`
-     * @param {String} Function Default: `null`
      * @returns {Promise<string[] | object[]>}
      */
     async Worlds(Username, Page = 1) {
@@ -375,7 +375,6 @@ class Toyhouse {
      * 
      * @param {String} Username
      * @param {Number | String} Page Default: `1`
-     * @param {String} Function Default: `null`
      * @returns {Promise<string[] | object[]>}
      */
     async Literatures(Username, Page = 1) {
@@ -574,15 +573,15 @@ class Toyhouse {
      * Returns a string representation of the body.
      * @param {String | URL} URL
      */
-    async Load_Body(URL) {
+    async Load_Body(URL = this.URL) {
         return await this.Body_String(URL)
     }
     /**
      * Returns a string representation of the HTML.
      * @param {String | URL} URL
      */
-    async Body_String(URL) {
-        const Response = await Fetch(URL || this.URL)
+    async Body_String(URL = this.URL) {
+        const Response = await Fetch(URL)
         const Body = await Response.text()
 
         const URL_Error = new Error('"URL" has to be a URL of a character or user.')
