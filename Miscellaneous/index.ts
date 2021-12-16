@@ -1,21 +1,24 @@
-// Toyhou.se ~ 10/7/21; October 7, 2021
+// Toyhou.se | Typescript ~ 12/16/21; December 16, 2021
 
-const Fetch = require('node-fetch')
-const Cheerio = require('cheerio')
+import Fetch from 'node-fetch'
+import * as Cheerio from 'cheerio'
 
 /**
  * The Toyhou.se Class
  */
-class Toyhouse {
+export default class Toyhouse {
+    URL: string
+    Gallery_URL: string
+
     /**
      * @param {String} URL The URL of the Character
      */
-    constructor(URL) {
+    constructor(URL: string) {
         const URL_Error = new Error('"URL" has to be a URL of a character or user.')
         if (!URL || !URL.includes('https://toyhou.se')) throw URL_Error
 
         this.URL = URL
-        this.#Gallery_URL = URL + '/gallery'
+        this.Gallery_URL = URL + '/gallery'
     }
 
     // Character ~ 10/7/21; October 7, 2021
@@ -24,7 +27,7 @@ class Toyhouse {
      * Returns the creator of a character.
      */
     async Creator() {
-        const Body = await this.#Load_Body(this.URL)
+        const Body = await this.Load_Body(this.URL)
         const $ = Cheerio.load(Body)
 
         const Username = $('.display-user-username').text()
@@ -43,7 +46,7 @@ class Toyhouse {
      * Returns the name and avatar of a character.
      */
     async Character() {
-        const Body = await this.#Load_Body(this.URL)
+        const Body = await this.Load_Body(this.URL)
         const $ = Cheerio.load(Body)
 
         const Name = $('.display-4').text()
@@ -52,10 +55,10 @@ class Toyhouse {
     }
     /**
      * Returns the profile of a character.
-     * @returns {Promise<String[]>}
+     * @returns {Promise<string[]>}
      */
-    async Profile() {
-        const Body = await this.#Load_Body(this.URL)
+    async Profile(): Promise<string[]> {
+        const Body = await this.Load_Body(this.URL)
         const $ = Cheerio.load(Body)
 
         const Characters_Profile = []
@@ -78,10 +81,10 @@ class Toyhouse {
     }
     /**
      * Returns the gallery of a character.
-     * @returns {Promise<String[] | URL[]>}
+     * @returns {Promise<string[]>}
      */
-    async Gallery() {
-        const Body = await this.#Load_Body(this.#Gallery_URL)
+    async Gallery(): Promise<string[]> {
+        const Body = await this.Load_Body(this.Gallery_URL)
         const $ = Cheerio.load(Body)
 
         const Arts = []
@@ -100,7 +103,7 @@ class Toyhouse {
      * Returns the date of creation of a character.
      */
     async Creation() {
-        const Body = await this.#Load_Body(this.URL)
+        const Body = await this.Load_Body(this.URL)
         const $ = Cheerio.load(Body)
 
         const Creation = $('.tooltipster')
@@ -111,10 +114,10 @@ class Toyhouse {
     }
     /**
      * Returns tags of a character.
-     * @returns {Promise<String[]>}
+     * @returns {Promise<string[]>}
      */
-    async Tags() {
-        const Body = await this.#Load_Body(this.URL)
+    async Tags(): Promise<string[]> {
+        const Body = await this.Load_Body(this.URL)
         const $ = Cheerio.load(Body)
 
         const Tags = []
@@ -154,13 +157,13 @@ class Toyhouse {
      * Returns the stats of a user.
      * @param {String} Username
      */
-    async Stats(Username) {
+    async Stats(Username: string) {
         if (
             !Username ||
             typeof Username !== 'string'
         ) throw new Error('Username has to be a Toyhouse username.')
 
-        const Body = await this.#Load_Body(`https://toyhou.se/${Username}/stats`)
+        const Body = await this.Load_Body(`https://toyhou.se/${Username}/stats`)
         const $ = Cheerio.load(Body)
 
         const User = $('.display-user a')
@@ -205,9 +208,11 @@ class Toyhouse {
      * @param {String} Username
      * @param {Number | String} Page Default: `1`
      * @param {String} Return Default: `''`
-     * @returns {Promise<string[] | object[]>}
+     * @returns {Promise<object[] | string[]>}
      */
-    async Characters(Username, Page = 1, Return = '') {
+    async Characters(
+        Username: string, Page: number = 1, Return: string = ''
+    ): Promise<Object[]> {
         if (
             !Username ||
             typeof Username !== 'string'
@@ -220,13 +225,13 @@ class Toyhouse {
         if (!Page || isNaN(Page)) throw Page_Error
 
         const URL = `https://toyhou.se/${Username}/characters/folder:all?page=${Page}`
-        const Body = await this.#Load_Body(URL)
+        const Body = await this.Load_Body(URL)
         const $ = Cheerio.load(Body)
         
         const Characters = []
 
         const Users_Characters = $('.gallery-row .gallery-item')
-        Users_Characters.each((I, Element) => {
+        Users_Characters.each((I, Element): boolean | void => {
             const All = $(Element)
 
             const Name = All.find(
@@ -235,10 +240,13 @@ class Toyhouse {
             const Avatar = All.find('.thumb-image a img').attr('src')
             
             if (!Name && !Avatar) return;
-            if (Return.includes('name')) return Characters.push(Name)
-            if (Return.includes('avatar')) return Characters.push(Avatar)
-
-            Characters.push({ Name: Name, Avatar: Avatar })
+            if (Return.includes('name')) {
+                Characters.push(Name)
+            } else if (Return.includes('avatar')) {
+                Characters.push(Avatar)
+            } else {
+                Characters.push({ Name: Name, Avatar: Avatar })
+            }
         })
 
         return Characters
@@ -250,7 +258,7 @@ class Toyhouse {
      * @param {Number | String} Page Default: `1`
      * @returns {Promise<string[]>}
      */
-    async Arts(Username, Page = 1) {
+    async Arts(Username: string, Page: number = 1): Promise<string[]> {
         if (
             !Username ||
             typeof Username !== 'string'
@@ -260,7 +268,7 @@ class Toyhouse {
         if (!Page || isNaN(Page)) throw Page_Error
         
         const URL = `https://toyhou.se/${Username}/art?page=${Page}`
-        const Body = await this.#Load_Body(URL)
+        const Body = await this.Load_Body(URL)
         const $ = Cheerio.load(Body)
     
         const Arts = []
@@ -282,7 +290,7 @@ class Toyhouse {
      * @param {Number | String} Page Default: `1`
      * @returns {Promise<string[]>}
      */
-    async Favorites(Username, Page = 1) {
+    async Favorites(Username: string, Page: number = 1): Promise<object[]> {
         if (
             !Username ||
             typeof Username !== 'string'
@@ -292,7 +300,7 @@ class Toyhouse {
         if (!Page || isNaN(Page)) throw Page_Error
         
         const URL = `https://toyhou.se/${Username}/favorites?page=${Page}`
-        const Body = await this.#Load_Body(URL)
+        const Body = await this.Load_Body(URL)
         const $ = Cheerio.load(Body)
         
         const Favorites = []
@@ -312,13 +320,13 @@ class Toyhouse {
      * Returns the date and time of registration of a user.
      * @param {String} Username
      */
-    async Registration(Username) {
+    async Registration(Username: string): Promise<string> {
         if (
             !Username ||
             typeof Username !== 'string'
         ) throw new Error('Username has to be a Toyhouse username.')
 
-        const Body = await this.#Load_Body(`https://toyhou.se/${Username}/stats`)
+        const Body = await this.Load_Body(`https://toyhou.se/${Username}/stats`)
         const $ = Cheerio.load(Body)
 
         const Stats = $('.stats-content dl').find('.field-value')
@@ -333,7 +341,7 @@ class Toyhouse {
      * @param {Number | String} Page Default: `1`
      * @returns {Promise<string[] | object[]>}
      */
-    async Worlds(Username, Page = 1) {
+    async Worlds(Username: string, Page: number = 1): Promise<object[]> {
         if (
             !Username ||
             typeof Username !== 'string'
@@ -343,7 +351,7 @@ class Toyhouse {
         if (!Page || isNaN(Page)) throw Page_Error
 
         const URL = `https://toyhou.se/${Username}/worlds?page=${Page}`
-        const Body = await this.#Load_Body(URL)
+        const Body = await this.Load_Body(URL)
         const $ = Cheerio.load(Body)
 
         // console.log(Body)
@@ -377,7 +385,7 @@ class Toyhouse {
      * @param {Number | String} Page Default: `1`
      * @returns {Promise<string[] | object[]>}
      */
-    async Literatures(Username, Page = 1) {
+    async Literatures(Username: string, Page: number = 1): Promise<object[]>{
         // This is a pain to make. ~ 10/19/21; October 19, 2021
 
         if (
@@ -389,7 +397,7 @@ class Toyhouse {
         if (!Page || isNaN(Page)) throw Page_Error
         
         const URL = `https://toyhou.se/${Username}/literatures?page=${Page}`
-        const Body = await this.#Load_Body(URL)
+        const Body = await this.Load_Body(URL)
         const $ = Cheerio.load(Body)
     
         const Literatures = []
@@ -465,9 +473,9 @@ class Toyhouse {
      * @param {String} Username
      * @returns {Promise<object[]>}
      */
-    async Username_Log(Username) {
+    async Username_Log(Username: string): Promise<object[]> {
         const URL = `https://toyhou.se/${Username}/stats/usernames`
-        const Body = await this.#Load_Body(URL)
+        const Body = await this.Load_Body(URL)
         const $ = Cheerio.load(Body)
 
         const Username_Log = []
@@ -500,7 +508,7 @@ class Toyhouse {
      * Returns all the links of a user.
      * @param {String} Username 
      */
-    async Links(Username, Page = 1) {
+    async Links(Username: string, Page: number = 1): Promise<object[]> {
         if (
             !Username ||
             typeof Username !== 'string'
@@ -510,7 +518,7 @@ class Toyhouse {
         if (!Page || isNaN(Page)) throw Page_Error
         
         const URL = `https://toyhou.se/${Username}/links?page=${Page}`
-        const Body = await this.#Load_Body(URL)
+        const Body = await this.Load_Body(URL)
         const $ = Cheerio.load(Body)
         
         const Links = []
@@ -571,17 +579,17 @@ class Toyhouse {
 
     /**
      * Returns a string representation of the body.
-     * @param {String | URL} URL
+     * @param {String} URL
      */
-    async #Load_Body(URL = this.URL) {
-        return await this.#Body_String(URL)
+    private async Load_Body(URL: string = this.URL): Promise<string> {
+        return await this.Body_String(URL)
     }
     /**
      * Returns a string representation of the HTML.
-     * @param {String | URL} URL
+     * @param {String} URL
      */
-    async #Body_String(URL = this.URL) {
-        const Response = await Fetch(URL)
+    private async Body_String(URL: string = this.URL): Promise<string> {
+        const Response = await Fetch(URL, {})
         const Body = await Response.text()
 
         const URL_Error = new Error('"URL" has to be a URL of a character or user.')
@@ -590,5 +598,3 @@ class Toyhouse {
         return Body
     }
 }
-
-module.exports = Toyhouse
